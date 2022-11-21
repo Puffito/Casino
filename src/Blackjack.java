@@ -45,45 +45,68 @@ public class Blackjack {
         MazoDePoker mazo = new MazoDePoker();
         ArrayList<String> resultados = new ArrayList<>();
         int total = 0;
+        int ases ;
         boolean parar = false;
 
         //Procesos
         // TODO: 18/11/2022 Hay que hacer que la casa u otro jugador también saquen carta
+
+        //Sacamos carta del jugador
         while (total < 21 && !parar){
             String carta = mazo.getCarta();
-            resultados.add(carta); // TODO: 18/11/2022 Hay que hacer que no pille la misma carta dos veces
-            if (carta.contains("J")||carta.contains("Q")||carta.contains("K")){
-                total += 10;
-            }else if (carta.contains("A") && 21 - total >= 10){
-                total += 11; // TODO: 18/11/2022 Hay que hacer que el A cambie de valor dinámicamente según el valor total
-            } else if (carta.contains("A") && 21 - total < 10) {
-                total +=1;
-            }else {
-                String[] numeroCarta = carta.split(" ");
-                total += Integer.parseInt(numeroCarta[0]);
-            }
-            System.out.printf("""
-                                Has sacado: %s
-                                Tus cartas son: %s
-                                El total es: %d
-                               """, carta, resultados, total);
 
-            //Mira si se llegó a 21 o se para
-            if(total < 21){
-                System.out.println("¿Quiéres seguir? 1.Si 2.No");
-                if(Integer.parseInt(br.readLine())==2){
-                    parar=true;
+            //Comprobamos que la carta no haya salido antes y la agregamos a la mesa
+            if (!resultados.contains(carta)) {
+                resultados.add(carta);
+                total = 0;
+                ases = 0;
+
+                //Hacemos suma de cartas en la mesa primero sumando los números fijos y guardando los Ases para el final
+                for (String comprobacion : resultados) {
+                    if (comprobacion.contains("J") || comprobacion.contains("Q") || comprobacion.contains("K")) {
+                        total += 10;
+                    } else if (comprobacion.contains("A")) {
+                        ases += 1;
+                    } else {
+                        String[] numeroCarta = comprobacion.split(" ");
+                        total += Integer.parseInt(numeroCarta[0]);
+                    }
                 }
-            } else if (total == 21) {
-                System.out.println("""
-                        ¡¡¡BLACKJACK!!!
-                        ¡Has Ganado!
-                        """);
-                parar=true;
 
-            } else{
-                System.out.println("Has perdido...");
-                parar=true;
+                //Sumamos los Ases según lo que haga falta, 1 u 11
+                for (int i = 0; i < ases; i++){
+                    if ((21 - total) < 11){
+                        total += 1;
+                    }else{
+                        total +=11;
+                    }
+                }
+
+                //Mostramos la mesa y los resultados
+                // TODO: 21/11/2022 Estaría bien mostrar las cartas gráficamente 
+                System.out.printf("""
+                         Has sacado: %s
+                         Tus cartas son: %s
+                         El total es: %d
+                        """, carta, resultados, total);
+
+                //Mira si se llegó a 21, se pasa o el usuario quiere parar
+                if (total < 21) {
+                    System.out.println("¿Quiéres seguir? 1.Si 2.No");
+                    if (Integer.parseInt(br.readLine()) == 2) {
+                        parar = true;
+                    }
+                } else if (total == 21) {
+                    System.out.println("""
+                            ¡¡¡BLACKJACK!!!
+                            ¡Has Ganado!
+                            """);
+                    parar = true;
+
+                } else {
+                    System.out.println("Has perdido...");
+                    parar = true;
+                }
             }
         }
 
