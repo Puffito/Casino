@@ -7,29 +7,7 @@ public class Blackjack {
 
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    public static void main(String[] args) throws IOException {
-
-        boolean salir = false;
-
-        //Menú de juegos
-        while(!salir){
-            System.out.println("""
-                            ¡Bienvenido al Pufficasino!
-                            Seleccione el juego al que quiere jugar:
-                            1. Blackjack
-                            0. Salir
-                            """);
-            switch(Integer.parseInt(br.readLine())){
-                case (1) -> blackjack();
-                default -> salir = true;
-            }
-        }
-        System.out.println("Gracias por jugar a los Puffijuegos.");
-
-    }
-
-    private static void blackjack() throws IOException {
-
+    public static int run(int saldo) throws IOException {
         //Instrucciones
         System.out.println("""
                 ¡Bienvenido al Blackjack!
@@ -43,75 +21,110 @@ public class Blackjack {
 
         //Creación de Variables
         MazoDePoker mazo = new MazoDePoker();
-        ArrayList<String> resultados = new ArrayList<>();
-        int total = 0;
-        int ases ;
-        boolean parar = false;
+        ArrayList<String> resultadosJugador = new ArrayList<>();
+        ArrayList<String> resultadosCasa = new ArrayList<>();
+        ArrayList<String> cartasSacadas = new ArrayList<>();
+        int totalJugador = 0;
+        int totalCasa = 0;
+        boolean pararJugador = false;
+
 
         //Procesos
-        // TODO: 18/11/2022 Hay que hacer que la casa u otro jugador también saquen carta
+        // TODO: 21/11/2022 Hacer que la Casa siga jugando aunque el jugador se retire 
 
         //Sacamos carta del jugador
-        while (total < 21 && !parar){
-            String carta = mazo.getCarta();
+        while (totalJugador < 21 && !pararJugador) {
+            resultadosJugador.add(mazo.getCarta(cartasSacadas));
+            cartasSacadas.add(resultadosJugador.get(resultadosJugador.size() - 1));
 
-            //Comprobamos que la carta no haya salido antes y la agregamos a la mesa
-            if (!resultados.contains(carta)) {
-                resultados.add(carta);
-                total = 0;
-                ases = 0;
+            totalJugador = sumarCartas(resultadosJugador);
 
-                //Hacemos suma de cartas en la mesa primero sumando los números fijos y guardando los Ases para el final
-                for (String comprobacion : resultados) {
-                    if (comprobacion.contains("J") || comprobacion.contains("Q") || comprobacion.contains("K")) {
-                        total += 10;
-                    } else if (comprobacion.contains("A")) {
-                        ases += 1;
-                    } else {
-                        String[] numeroCarta = comprobacion.split(" ");
-                        total += Integer.parseInt(numeroCarta[0]);
-                    }
-                }
 
-                //Sumamos los Ases según lo que haga falta, 1 u 11
-                for (int i = 0; i < ases; i++){
-                    if ((21 - total) < 11){
-                        total += 1;
-                    }else{
-                        total +=11;
-                    }
-                }
+            if (totalCasa < 21 && totalCasa < totalJugador) {
+                resultadosCasa.add(mazo.getCarta(cartasSacadas));
+                cartasSacadas.add(resultadosCasa.get(resultadosCasa.size() - 1));
 
-                //Mostramos la mesa y los resultados
-                // TODO: 21/11/2022 Estaría bien mostrar las cartas gráficamente 
-                System.out.printf("""
-                         Has sacado: %s
-                         Tus cartas son: %s
-                         El total es: %d
-                        """, carta, resultados, total);
-
-                //Mira si se llegó a 21, se pasa o el usuario quiere parar
-                if (total < 21) {
-                    System.out.println("¿Quiéres seguir? 1.Si 2.No");
-                    if (Integer.parseInt(br.readLine()) == 2) {
-                        parar = true;
-                    }
-                } else if (total == 21) {
-                    System.out.println("""
-                            ¡¡¡BLACKJACK!!!
-                            ¡Has Ganado!
-                            """);
-                    parar = true;
-
-                } else {
-                    System.out.println("Has perdido...");
-                    parar = true;
-                }
+                totalCasa = sumarCartas(resultadosCasa);
             }
+
+
+            //Mostramos la mesa y los resultados
+            // TODO: 21/11/2022 Estaría bien mostrar las cartas gráficamente
+            System.out.printf("""
+                     Has sacado: %s
+                     Tus cartas son: %s
+                     El total es: %d
+                     
+                    """, resultadosJugador.get(resultadosJugador.size() - 1), resultadosJugador, totalJugador);
+
+            System.out.printf("""
+                     La casa ha sacado: %s
+                     Las cartas de la casa son: %s
+                     Su total es: %d
+                     
+                    """, resultadosCasa.get(resultadosCasa.size() - 1), resultadosCasa, totalCasa);
+
+            //Mira si se llegó a 21, se pasa o el usuario quiere parar
+            if (totalJugador < 21) {
+                System.out.println("¿Quieres seguir? 1.Si 2.No");
+                if (Integer.parseInt(br.readLine()) == 2) {
+                    pararJugador = true;
+                }
+            }  else {
+                pararJugador = true;
+            }
+        }
+
+        if(totalJugador > 21 || (totalJugador < totalCasa && totalCasa <= 21)){
+            System.out.println("Has perdido...");
+            saldo -= 50;
+        }else if (totalJugador == 21 && resultadosJugador.size() == 2) {
+            System.out.println("""
+            ¡¡¡BLACKJACK!!!
+            ¡Has ganado 50€!
+            """);
+            saldo += 50;
+        }
+        else if (totalJugador == totalCasa && totalCasa < 21) {
+            System.out.println("""
+            Empate
+            Recuperas tu apuesta inicial""");
+        }else{
+            System.out.println("¡Has ganado 25€!");
+            saldo += 25;
         }
 
         System.out.println("Pulsa ENTER para continuar");
         br.readLine();
+        return saldo;
+    }
+
+    static int sumarCartas(ArrayList<String> cartasSacadas) {
+        //Reiniciamos total y ases para volver a contarlos
+        int total = 0;
+        int ases = 0;
+
+        //Hacemos suma de cartas en la mesa primero sumando los números fijos y guardando los Ases para el final
+        for (String comprobacion : cartasSacadas) {
+            if (comprobacion.contains("J") || comprobacion.contains("Q") || comprobacion.contains("K")) {
+                total += 10;
+            } else if (comprobacion.contains("A")) {
+                ases += 1;
+            } else {
+                String[] numeroCarta = comprobacion.split(" ");
+                total += Integer.parseInt(numeroCarta[0]);
+            }
+        }
+
+        //Sumamos los Ases según lo que haga falta, 1 u 11
+        for (int i = 0; i < ases; i++) {
+            if ((21 - total) < 11) {
+                total += 1;
+            } else {
+                total += 11;
+            }
+        }
+        return total;
     }
 
 }

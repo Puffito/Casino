@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MazoDePoker {
@@ -25,8 +26,13 @@ public class MazoDePoker {
         }
     }
 
-    public String getCarta() {
-        Random azar = new Random();
-        return mazo[azar.nextInt(4)][azar.nextInt(13)];
+    public String getCarta(ArrayList<String> resultados) {
+        String carta;
+        do {
+            Random azar = new Random();
+            carta = mazo[azar.nextInt(4)][azar.nextInt(13)];
+        } while (resultados.contains(carta));
+
+        return carta;
     }
 }
