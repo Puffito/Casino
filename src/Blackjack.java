@@ -14,6 +14,7 @@ public class Blackjack {
                 Para jugar saca cartas del mazo intentando llegar a 21 sin pasarte.
                 J, Q y K valen 10 puntos.
                 El A vale 1 o 11 puntos.
+                Si sacas un 21 sacando solo dos cartas consigues un BLACKJACK y ganas extra.
                 ¡Mucha suerte!
                 Pulsa ENTER para sacar la primera carta.
                 """);
@@ -25,14 +26,13 @@ public class Blackjack {
         ArrayList<String> resultadosCasa = new ArrayList<>();
         ArrayList<String> cartasSacadas = new ArrayList<>();
         int totalJugador = 0;
-        int totalCasa = 0;
+        int totalBanca = 0;
         boolean pararJugador = false;
 
 
         //Procesos
 
-
-        while ((totalJugador < 21 && !pararJugador)||totalCasa<21&&totalCasa<totalJugador) {
+        while ((totalJugador < 21 && !pararJugador)||totalBanca<21&&totalBanca<totalJugador) {
 
             //Sacamos carta del jugador
             if(totalJugador < 21 && !pararJugador) {
@@ -43,11 +43,11 @@ public class Blackjack {
             }
 
             //Sacamos carta de la casa
-            if (totalCasa < 21 && totalCasa < totalJugador) {
+            if (totalBanca < 21 && totalBanca < totalJugador) {
                 resultadosCasa.add(mazo.getCarta(cartasSacadas));
                 cartasSacadas.add(resultadosCasa.get(resultadosCasa.size() - 1));
 
-                totalCasa = sumarCartas(resultadosCasa);
+                totalBanca = sumarCartas(resultadosCasa);
             }
 
 
@@ -62,13 +62,13 @@ public class Blackjack {
 
             System.out.printf("""
                      La casa ha sacado: %s
-                     Las cartas de la casa son: %s
+                     Las cartas de la banca son: %s
                      Su total es: %d
                      
-                    """, resultadosCasa.get(resultadosCasa.size() - 1), resultadosCasa, totalCasa);
+                    """, resultadosCasa.get(resultadosCasa.size() - 1), resultadosCasa, totalBanca);
 
             //Mira si se llegó a 21, se pasa o el usuario quiere parar
-            if (totalJugador < 21) {
+            if (totalJugador < 21 && totalBanca <= 21) {
                 System.out.println("¿Quieres seguir? 1.Si 2.No");
                 if (Integer.parseInt(br.readLine()) == 2) {
                     pararJugador = true;
@@ -78,7 +78,7 @@ public class Blackjack {
             }
         }
 
-        if(totalJugador > 21 || (totalJugador < totalCasa && totalCasa <= 21)){
+        if(totalJugador > 21 || (totalJugador < totalBanca && totalBanca <= 21)){
             System.out.println("Has perdido...");
             saldo -= 50;
         }else if (totalJugador == 21 && resultadosJugador.size() == 2) {
@@ -88,7 +88,7 @@ public class Blackjack {
             """);
             saldo += 50;
         }
-        else if (totalJugador == totalCasa && totalCasa < 21) {
+        else if (totalJugador == totalBanca && totalBanca < 21) {
             System.out.println("""
             Empate
             Recuperas tu apuesta inicial""");

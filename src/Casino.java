@@ -12,9 +12,9 @@ public class Casino {
 
         System.out.println("""
                             ¡Bienvenido al Pufficasino!
-                            ¿Cuál es tu nombre?
-                            """);
+                            ¿Cuál es tu nombre?""");
 
+        // TODO: 22/11/2022 Hacer que el saldo se guarde localmente para seguir jugando luego 
         String nombre = br.readLine();
         int saldo = 500;
         System.out.print("Bienvenido ");
