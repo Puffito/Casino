@@ -30,16 +30,19 @@ public class Blackjack {
 
 
         //Procesos
-        // TODO: 21/11/2022 Hacer que la Casa siga jugando aunque el jugador se retire 
-
-        //Sacamos carta del jugador
-        while (totalJugador < 21 && !pararJugador) {
-            resultadosJugador.add(mazo.getCarta(cartasSacadas));
-            cartasSacadas.add(resultadosJugador.get(resultadosJugador.size() - 1));
-
-            totalJugador = sumarCartas(resultadosJugador);
 
 
+        while ((totalJugador < 21 && !pararJugador)||totalCasa<21&&totalCasa<totalJugador) {
+
+            //Sacamos carta del jugador
+            if(totalJugador < 21 && !pararJugador) {
+                resultadosJugador.add(mazo.getCarta(cartasSacadas));
+                cartasSacadas.add(resultadosJugador.get(resultadosJugador.size() - 1));
+
+                totalJugador = sumarCartas(resultadosJugador);
+            }
+
+            //Sacamos carta de la casa
             if (totalCasa < 21 && totalCasa < totalJugador) {
                 resultadosCasa.add(mazo.getCarta(cartasSacadas));
                 cartasSacadas.add(resultadosCasa.get(resultadosCasa.size() - 1));
