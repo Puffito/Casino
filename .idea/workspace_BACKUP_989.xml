@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="448bebfb-5a61-495f-a346-8ee5e8e83e9d" name="Changes" comment="Arreglado el bug de que la casa dejaba de jugar si el jugador se retiraba.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+    <list default="true" id="448bebfb-5a61-495f-a346-8ee5e8e83e9d" name="Changes" comment="Añadido código para qué la casa también juegue y también para tener saldo y ganar dinero.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Blackjack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Blackjack.java" afterDir="false" />
+>>>>>>> 0246cbe166ab3e4ae378d4962a885d359f3aaf0a
+      <change beforePath="$PROJECT_DIR$/src/Casino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Casino.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +79,7 @@
       <option name="project" value="LOCAL" />
       <updated>1669059458809</updated>
     </task>
+<<<<<<< HEAD
     <task id="LOCAL-00004" summary="Arreglado el bug de que la casa dejaba de jugar si el jugador se retiraba.">
       <created>1669138642145</created>
       <option name="number" value="00004" />
@@ -80,6 +88,9 @@
       <updated>1669138642145</updated>
     </task>
     <option name="localTasksCounter" value="5" />
+=======
+    <option name="localTasksCounter" value="4" />
+>>>>>>> 0246cbe166ab3e4ae378d4962a885d359f3aaf0a
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
