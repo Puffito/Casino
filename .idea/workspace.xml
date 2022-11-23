@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="448bebfb-5a61-495f-a346-8ee5e8e83e9d" name="Changes" comment="Añadido archivo de guardado para seguir jugando en momentos posteriores. Arreglado bug donde no se podía seguir jugando después de plantarse.">
-      <change afterPath="$PROJECT_DIR$/SaldoJugadores.txt" afterDir="false" />
+    <list default="true" id="448bebfb-5a61-495f-a346-8ee5e8e83e9d" name="Changes" comment="Empezando el diseño del Hold'Em Poker.">
+      <change afterPath="$PROJECT_DIR$/src/HoldEMPoker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Blackjack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Blackjack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SaldoJugadores.txt" beforeDir="false" afterPath="$PROJECT_DIR$/SaldoJugadores.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Casino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Casino.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669147370439</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Añadido archivo de guardado para seguir jugando en momentos posteriores. Arreglado bug donde no se podía seguir jugando después de plantarse.">
+      <created>1669226822946</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1669226822946</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -112,6 +119,7 @@
     <MESSAGE value="Arreglado el bug de que la casa dejaba de jugar si el jugador se retiraba." />
     <MESSAGE value="Ahora el Blackjack para automaticamente si la casa se pasa de 21 y el jugador no ha llegado a 21" />
     <MESSAGE value="Añadido archivo de guardado para seguir jugando en momentos posteriores. Arreglado bug donde no se podía seguir jugando después de plantarse." />
-    <option name="LAST_COMMIT_MESSAGE" value="Añadido archivo de guardado para seguir jugando en momentos posteriores. Arreglado bug donde no se podía seguir jugando después de plantarse." />
+    <MESSAGE value="Empezando el diseño del Hold'Em Poker." />
+    <option name="LAST_COMMIT_MESSAGE" value="Empezando el diseño del Hold'Em Poker." />
   </component>
 </project>

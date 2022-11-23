@@ -1,1 +1,3 @@
 Luis, 500
+Ramiro, 800
+Trampa, 1000

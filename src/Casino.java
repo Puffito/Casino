@@ -23,10 +23,12 @@ public class Casino {
                             %s, tu saldo es de %d€
                             Selecciona el juego al que quiere jugar:
                             1. Blackjack - 50€
+                            2. Poker -50€
                             0. Salir
                             """,nombre,saldo);
             switch(Integer.parseInt(br.readLine())){
                 case (1) -> saldo = Blackjack.run(saldo);
+                case (2) -> saldo = HoldEMPoker.run(saldo);
                 default -> salir = true;
             }
         }
