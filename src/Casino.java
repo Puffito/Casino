@@ -1,6 +1,5 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.ArrayList;
 
 public class Casino {
 
@@ -13,11 +12,9 @@ public class Casino {
         System.out.println("""
                             ¡Bienvenido al Pufficasino!
                             ¿Cuál es tu nombre?""");
-
-        // TODO: 22/11/2022 Hacer que el saldo se guarde localmente para seguir jugando luego 
         String nombre = br.readLine();
-        int saldo = 500;
-        System.out.print("Bienvenido ");
+        int saldo = leerSaveFile(nombre);
+
 
         // TODO: 21/11/2022 Empezar a pensar en otro juego
         //Menú de juegos 
@@ -36,6 +33,73 @@ public class Casino {
         if(saldo < 50){
             System.out.println("¡Fuera de aquí, estás en la quiebra!");
         }
+
+        guardarSaveFile(nombre,saldo);
         System.out.println("Gracias por jugar a los Puffijuegos.");
     }
+
+    // TODO: 23/11/2022 Hay que hacer que no salga el mensaje de error cuando no hay archivo de guardado creado 
+    static int leerSaveFile(String nombre){
+
+        int saldo = 500;
+
+        try {
+            FileReader file = new FileReader("saldoJugadores.txt");
+            BufferedReader reader = new BufferedReader(file);
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] partesLinea =  linea.split(", ");
+
+                if(partesLinea[0].equals(nombre)){
+                    saldo = Integer.parseInt(partesLinea[1]);
+                }
+            }
+            reader.close();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.print("Bienvenido ");
+        return saldo;
+    }
+    static void guardarSaveFile(String nombre, int saldo){
+        boolean nuevo = true;
+        ArrayList<String> lineasSaveFile = new ArrayList<>();
+        String linea;
+
+        try {
+        FileReader file = new FileReader("saldoJugadores.txt");
+        BufferedReader reader = new BufferedReader(file);
+            while ((linea = reader.readLine()) != null) {
+                String[] partesLinea =  linea.split(", ");
+                if(partesLinea[0].equals(nombre)){
+                    lineasSaveFile.add(nombre + ", " + saldo);
+                    nuevo = false;
+                }
+                else{
+                    lineasSaveFile.add(linea);
+                }
+            }
+
+            reader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileWriter writer = new FileWriter("SaldoJugadores.txt");
+            for (String s : lineasSaveFile) {
+                writer.write(s + "\r\n");
+            }
+            if (nuevo) {
+                writer.write(nombre + ", " + saldo + "\r\n");
+            }
+            writer.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

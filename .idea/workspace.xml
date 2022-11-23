@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="448bebfb-5a61-495f-a346-8ee5e8e83e9d" name="Changes" comment="Arreglado el bug de que la casa dejaba de jugar si el jugador se retiraba.">
+    <list default="true" id="448bebfb-5a61-495f-a346-8ee5e8e83e9d" name="Changes" comment="Añadido archivo de guardado para seguir jugando en momentos posteriores. Arreglado bug donde no se podía seguir jugando después de plantarse.">
+      <change afterPath="$PROJECT_DIR$/SaldoJugadores.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Blackjack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Blackjack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Casino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Casino.java" afterDir="false" />
@@ -41,6 +42,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/IntelliJ/Casino&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
 }</component>
@@ -81,7 +83,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669138642145</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Ahora el Blackjack para automaticamente si la casa se pasa de 21 y el jugador no ha llegado a 21">
+      <created>1669147370439</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1669147370439</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -101,6 +110,8 @@
     <MESSAGE value="Arreglado el TODO del Blackjack para no repetir la misma carta y para sumar dinámicamente los Ases." />
     <MESSAGE value="Añadido código para qué la casa también juegue y también para tener saldo y ganar dinero." />
     <MESSAGE value="Arreglado el bug de que la casa dejaba de jugar si el jugador se retiraba." />
-    <option name="LAST_COMMIT_MESSAGE" value="Arreglado el bug de que la casa dejaba de jugar si el jugador se retiraba." />
+    <MESSAGE value="Ahora el Blackjack para automaticamente si la casa se pasa de 21 y el jugador no ha llegado a 21" />
+    <MESSAGE value="Añadido archivo de guardado para seguir jugando en momentos posteriores. Arreglado bug donde no se podía seguir jugando después de plantarse." />
+    <option name="LAST_COMMIT_MESSAGE" value="Añadido archivo de guardado para seguir jugando en momentos posteriores. Arreglado bug donde no se podía seguir jugando después de plantarse." />
   </component>
 </project>

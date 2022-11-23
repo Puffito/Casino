@@ -52,7 +52,7 @@ public class Blackjack {
 
 
             //Mostramos la mesa y los resultados
-            // TODO: 21/11/2022 Estaría bien mostrar las cartas gráficamente
+            // TODO: 21/11/2022 Estaría bien mostrar las cartas gráficamente con Java FX
             System.out.printf("""
                      Has sacado: %s
                      Tus cartas son: %s
@@ -70,36 +70,13 @@ public class Blackjack {
             //Mira si se llegó a 21, se pasa o el usuario quiere parar
             if (totalJugador < 21 && totalBanca <= 21) {
                 System.out.println("¿Quieres seguir? 1.Si 2.No");
-                if (Integer.parseInt(br.readLine()) == 2) {
-                    pararJugador = true;
-                }
+                pararJugador = Integer.parseInt(br.readLine()) != 1;
             }  else {
                 pararJugador = true;
             }
         }
 
-        if(totalJugador > 21 || (totalJugador < totalBanca && totalBanca <= 21)){
-            System.out.println("Has perdido...");
-            saldo -= 50;
-        }else if (totalJugador == 21 && resultadosJugador.size() == 2) {
-            System.out.println("""
-            ¡¡¡BLACKJACK!!!
-            ¡Has ganado 50€!
-            """);
-            saldo += 50;
-        }
-        else if (totalJugador == totalBanca && totalBanca < 21) {
-            System.out.println("""
-            Empate
-            Recuperas tu apuesta inicial""");
-        }else{
-            System.out.println("¡Has ganado 25€!");
-            saldo += 25;
-        }
-
-        System.out.println("Pulsa ENTER para continuar");
-        br.readLine();
-        return saldo;
+        return(resultados(totalJugador,totalBanca,resultadosJugador,saldo));
     }
 
     static int sumarCartas(ArrayList<String> cartasSacadas) {
@@ -128,6 +105,31 @@ public class Blackjack {
             }
         }
         return total;
+    }
+
+    static int resultados(int totalJugador, int totalBanca, ArrayList<String> resultadosJugador, int saldo) throws IOException {
+        if(totalJugador > 21 || (totalJugador < totalBanca && totalBanca <= 21)){
+            System.out.println("Has perdido...");
+            saldo -= 50;
+        }else if (totalJugador == 21 && resultadosJugador.size() == 2) {
+            System.out.println("""
+            ¡¡¡BLACKJACK!!!
+            ¡Has ganado 50€!
+            """);
+            saldo += 50;
+        }
+        else if (totalJugador == totalBanca && totalBanca < 21) {
+            System.out.println("""
+            Empate
+            Recuperas tu apuesta inicial""");
+        }else{
+            System.out.println("¡Has ganado 25€!");
+            saldo += 25;
+        }
+
+        System.out.println("Pulsa ENTER para continuar");
+        br.readLine();
+        return saldo;
     }
 
 }
