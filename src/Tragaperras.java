@@ -27,14 +27,14 @@ public class Tragaperras {
         System.out.print("\n");
         if (resultados[0].equals(resultados[1]) || resultados[1].equals(resultados[2]) || resultados[0].equals(resultados[2])) {
             if (resultados[0].equals(resultados[1]) && resultados[1].equals(resultados[2])){
-                saldo += 10;
-                System.out.println("Enhorabuena, ha ganado 10 monedas");
+                saldo += 500;
+                System.out.println("Enhorabuena, ha ganado 500€");
             }
-            else System.out.println("Bien, ha recuperado su moneda");
+            else System.out.println("Bien, has recuperado tu dinero.");
         }
         else{
-            saldo -= 1;
-            System.out.println("Lo siento ha perdido");
+            saldo -= 50;
+            System.out.println("Lo siento has perdido...");
         }
         br.readLine();
         return saldo;

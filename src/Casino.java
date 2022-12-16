@@ -15,6 +15,14 @@ public class Casino {
         String nombre = br.readLine();
         int saldo = leerSaveFile(nombre);
 
+        if (saldo < 50){
+            saldo = 50;
+            System.out.println("""
+        Así que has vuelto ¿eh?
+        Toma algo de cambio a ver si esta vez sacas algo...
+        """);
+            br.readLine();
+        }
 
         // TODO: 21/11/2022 Empezar a pensar en otro juego
         //Menú de juegos 
@@ -24,7 +32,7 @@ public class Casino {
                             Selecciona el juego al que quiere jugar:
                             1. Blackjack - 50€
                             2. Poker - 50€
-                            3. Tragaperras - 1€
+                            3. Tragaperras - 50€
                             0. Salir
                             """,nombre,saldo);
             switch(Integer.parseInt(br.readLine())){
@@ -64,7 +72,7 @@ public class Casino {
             e.printStackTrace();
         }
 
-        System.out.print("Bienvenido ");
+        if(saldo>=50)System.out.print("Bienvenido ");
         return saldo;
     }
     static void guardarSaveFile(String nombre, int saldo){
