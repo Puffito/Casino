@@ -1,4 +1,4 @@
-Luis, 500
+Luis, 100
 Ramiro, 800
 Trampa, 1000
-Puffito, 50
+Puffito, 0

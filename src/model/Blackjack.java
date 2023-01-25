@@ -1,3 +1,7 @@
+package model;
+
+import iu.Textos;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,20 +11,12 @@ public class Blackjack {
 
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    public static int run(int saldo) throws IOException {
+    public static int jugar(int saldo) throws IOException {
         //Instrucciones
-        System.out.println("""
-                Â¡Bienvenido al Blackjack!
-                Para jugar saca cartas del mazo intentando llegar a 21 sin pasarte.
-                J, Q y K valen 10 puntos.
-                El A vale 1 o 11 puntos.
-                Si sacas un 21 sacando solo dos cartas consigues un BLACKJACK y ganas extra.
-                Â¡Mucha suerte!
-                Pulsa ENTER para sacar la primera carta.
-                """);
+        System.out.println(Textos.REGLAS_BLACKJACK);
         br.readLine();
 
-        //CreaciÃ³n de Variables
+        //Creación de Variables
         MazoDePoker mazo = new MazoDePoker();
         ArrayList<String> resultadosJugador = new ArrayList<>();
         ArrayList<String> resultadosCasa = new ArrayList<>();
@@ -32,10 +28,11 @@ public class Blackjack {
 
         //Procesos
 
-        while ((totalJugador < 21 && !pararJugador)||totalBanca<21&&totalBanca<totalJugador) {
+        while ((totalJugador < 21 && !pararJugador)
+                || (totalBanca < 21 && totalBanca < totalJugador)) {
 
             //Sacamos carta del jugador
-            if(totalJugador < 21 && !pararJugador) {
+            if (totalJugador < 21 && !pararJugador) {
                 resultadosJugador.add(mazo.getCarta(cartasSacadas));
                 cartasSacadas.add(resultadosJugador.get(resultadosJugador.size() - 1));
 
@@ -43,7 +40,7 @@ public class Blackjack {
             }
 
             //Sacamos carta de la casa
-            if (totalBanca < 21 && totalBanca < totalJugador) {
+            if (totalBanca < 17 && totalBanca < totalJugador) {
                 resultadosCasa.add(mazo.getCarta(cartasSacadas));
                 cartasSacadas.add(resultadosCasa.get(resultadosCasa.size() - 1));
 
@@ -52,7 +49,7 @@ public class Blackjack {
 
 
             //Mostramos la mesa y los resultados
-            // TODO: 21/11/2022 EstarÃ­a bien mostrar las cartas grÃ¡ficamente con Java FX
+            // TODO: 21/11/2022 Estaría bien mostrar las cartas gráficamente con Java FX
             System.out.printf("""
                      Has sacado: %s
                      Tus cartas son: %s
@@ -67,16 +64,16 @@ public class Blackjack {
                      
                     """, resultadosCasa.get(resultadosCasa.size() - 1), resultadosCasa, totalBanca);
 
-            //Mira si se llegÃ³ a 21, se pasa o el usuario quiere parar
+            //Mira si se llegó a 21, se pasa o el usuario quiere parar
             if (totalJugador < 21 && totalBanca <= 21) {
-                System.out.println("Â¿Quieres seguir? 1.Si 2.No");
+                System.out.println("¿Quieres seguir? 1.Si 2.No");
                 pararJugador = Integer.parseInt(br.readLine()) != 1;
-            }  else {
+            } else {
                 pararJugador = true;
             }
         }
 
-        return(resultados(totalJugador,totalBanca,resultadosJugador,saldo));
+        return (resultados(totalJugador, totalBanca, resultadosJugador, saldo));
     }
 
     static int sumarCartas(ArrayList<String> cartasSacadas) {
@@ -84,7 +81,7 @@ public class Blackjack {
         int total = 0;
         int ases = 0;
 
-        //Hacemos suma de cartas en la mesa primero sumando los nÃºmeros fijos y guardando los Ases para el final
+        //Hacemos suma de cartas en la mesa primero sumando los números fijos y guardando los Ases para el final
         for (String comprobacion : cartasSacadas) {
             if (comprobacion.contains("J") || comprobacion.contains("Q") || comprobacion.contains("K")) {
                 total += 10;
@@ -96,7 +93,7 @@ public class Blackjack {
             }
         }
 
-        //Sumamos los Ases segÃºn lo que haga falta, 1 u 11
+        //Sumamos los Ases según lo que haga falta, 1 u 11
         for (int i = 0; i < ases; i++) {
             if ((21 - total) < 11) {
                 total += 1;
@@ -108,22 +105,21 @@ public class Blackjack {
     }
 
     static int resultados(int totalJugador, int totalBanca, ArrayList<String> resultadosJugador, int saldo) throws IOException {
-        if(totalJugador > 21 || (totalJugador < totalBanca && totalBanca <= 21)){
+        if (totalJugador > 21 || (totalJugador < totalBanca && totalBanca <= 21)) {
             System.out.println("Has perdido...");
             saldo -= 50;
-        }else if (totalJugador == 21 && resultadosJugador.size() == 2) {
+        } else if (totalJugador == 21 && resultadosJugador.size() == 2) {
             System.out.println("""
-            Â¡Â¡Â¡BLACKJACK!!!
-            Â¡Has ganado 50â‚¬!
-            """);
+                    ¡¡¡BLACKJACK!!!
+                    ¡Has ganado 50€!
+                    """);
             saldo += 50;
-        }
-        else if (totalJugador == totalBanca && totalBanca < 21) {
+        } else if (totalJugador == totalBanca && totalBanca < 21) {
             System.out.println("""
-            Empate
-            Recuperas tu apuesta inicial""");
-        }else{
-            System.out.println("Â¡Has ganado 25â‚¬!");
+                    Empate
+                    Recuperas tu apuesta inicial""");
+        } else {
+            System.out.println("¡Has ganado 25€!");
             saldo += 25;
         }
 

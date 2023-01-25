@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,10 +11,10 @@ public class MazoDePoker {
     MazoDePoker(){
         for (int i = 0; i < 4; i++) {
             switch (i) {
-                case (0) -> palo = "CorazÃ³n";
+                case (0) -> palo = "Corazón";
                 case (1) -> palo = "Pica";
                 case (2) -> palo = "Diamante";
-                case (3) -> palo = "TrÃ©bol";
+                case (3) -> palo = "Trébol";
             }
             for (int j = 0; j < 13; j++) {
                 switch (j) {
